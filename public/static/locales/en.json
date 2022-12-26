@@ -1,0 +1,18 @@
+{
+    "validation": {
+        "required": "This field is required",
+        "number": "Must be a valid number",
+        "email": "Invalid email"
+    },
+    "general":{
+        "testingPartner": "Your content testing partner"
+    },
+    "login": {
+        "heading": "Sign in",
+        "form": {
+            "email": "Email",
+            "password": "Password",
+            "loginButton": "Log in"
+        }
+    }
+}
