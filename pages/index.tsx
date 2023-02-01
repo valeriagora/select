@@ -1,6 +1,7 @@
 import React from 'react';
 import { Typography } from '@mui/material';
 import { styled } from '@mui/material/styles';
+import { useRouter } from 'next/router';
 import Navbar from '../components/Navbar';
 import { useTranslation } from '../hooks/useTranslation';
 import { useUser } from '@auth0/nextjs-auth0/client';
@@ -23,7 +24,12 @@ export default function Home(): JSX.Element {
   const { t: getLabel } = useTranslation();
   const { user, error, isLoading } = useUser();
   console.log(user, error, isLoading);
-
+  const { push } = useRouter();
+  const logout = () => {
+    push('/api/auth/logout')
+      .then((res) => console.log('res', res))
+      .catch((err) => console.log('err', err));
+  };
   if (isLoading) {
     return <div>Loading</div>;
   }
@@ -34,7 +40,9 @@ export default function Home(): JSX.Element {
     return (
       <>
         <h1>Welcome, {user.name}</h1>
-        <a href={'/api/auth/logout'}>Log out</a>
+        <div style={{ color: 'cornflowerblue' }} onClick={logout}>
+          Log out
+        </div>
       </>
     );
   }

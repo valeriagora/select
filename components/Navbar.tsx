@@ -1,7 +1,8 @@
 import React from 'react';
+import { useRouter } from 'next/router';
 import { AppBar, Button, Toolbar, Typography } from '@mui/material';
 import Link from 'next/link';
-import { getCurrentUserRole } from '../utils/auth';
+// import { getCurrentUserRole } from '../utils/auth';
 import { styled } from '@mui/material/styles';
 import { useUser } from '@auth0/nextjs-auth0/client';
 
@@ -74,22 +75,40 @@ export const NavBar: React.FC<{ children: React.ReactNode }> = (props) => {
 
 const IndexNavBar = () => {
   // const [isAuth, setIsAuth] = useState(false);
-
+  const { push } = useRouter();
   // useEffect(() => {
   //   const isAuthenticated = !!getAuthToken();
   //   setIsAuth(isAuthenticated);
   // }, []);
-  const res = useUser();
-  console.log('res', res);
+  const { user, error, isLoading } = useUser();
+  // console.log('res', res);
   // console.log('user', user);
   // console.log('loading', isLoading);
   // console.log('err', error);
   // console.log('getCurrentUserRole()', getCurrentUserRole());
+  const login = () => {
+    push('/api/auth/login');
+  };
+  // if (isLoading) {
+  //   return <div>Loading</div>;
+  // }
+  // if (error) {
+  //   return <div>{error.message}</div>;
+  // }
+  // if (user) {
+  //   return (
+  //     <>
+  //       <h1>Welcome, {user.name}</h1>
+  //       <a href={'/api/auth/logout'}>Log out</a>
+  //     </>
+  //   );
+  // }
+
   return (
     <NavBar>
-      <Link href="/api/auth/login">
-        <Typography variant="button">Log in</Typography>
-      </Link>
+      <Typography variant="button" onClick={login}>
+        Log in
+      </Typography>
       {/* {getTopRightControls(!!user)} */}
     </NavBar>
   );
